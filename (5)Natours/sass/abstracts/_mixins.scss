@@ -1,0 +1,15 @@
+// This makes sure, that the element whose child elements have been floated, doesn't get shrinked down to 0 height.
+@mixin clearfix {
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

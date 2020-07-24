@@ -1,0 +1,232 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+
+/* In this, we are adding a browser cross-wide reset. We are selecting all the elements, and giving them some
+CSS properties. "box-sizing:border-box" helps us to make sure that any margins and padding are not added to the 
+height & width of the box that we specify. Without this, they will be added to the height and the width of the box.*/
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+
+/* Using HTML tag, we can change the Root font-size. Though it's really a bad practice to set the root front-size
+in terms of pixels. It is so because, many people set the default font-size of their Browsers. And by defining the
+root font-size in terms of pixels, we are over-riding the font-size set by the user. So it's better to use the set
+the root font-size in terms of pixels. So we are just assuming that the user is not changing the font-size and the
+default value is 16px, the 62.5% of which is 10 px, which we want. */
+
+html {
+    font-size: 62.5%;
+}
+
+
+/* The value of line-height means that the line-height will be 1.7 times, it's original line-height. */
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    /* font-size: 16px; */
+    line-height: 1.7;
+    color: #777;
+    padding: 3rem;
+    box-sizing: border-box;
+}
+
+
+/* We are specifying 2 things in background-image, the first thing that we specify is going to stay on top, and the 
+other thing that we specify is going to stay at the bottom. As the first thing, we are specifying a linear gradient
+which goes from the former color to the latter color. Also, we can specify the direction where the gradient should
+go to. In order to fit an image, in random shaped, we can use clip-path CSS property. In this case, we want it to
+fit inside a polygon, where we are specifying the 4 Coordinates, with respect to the element, in which we are using 
+it.*/
+
+.header {
+    height: 95vh;
+    background-image: linear-gradient( to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 131, 0.8)), url(../img/hero.jpg);
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
+
+
+/* When we use absolute positioning for an element, the top, left, bottom and right, are determined with respect to
+the parent, whose position is set to relative, in this case the header element. */
+
+.header__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+}
+
+.header__logo {
+    height: 3.5rem;
+}
+
+
+/* This is quite a nice way to position the element, at the center of the screen. The top and left are relative 
+to the parent element. While the transform property is relative to the element in itself.*/
+
+.header__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+/* We are using backface-visibility in order to remove the little shaky effect on the elements, after the transition
+ends. No one actually knows why the shaky effect is there. But this works like a quick fix for that. This property
+governs the back-part of elements, when we rotate the, so take care of it if rotating an element. */
+
+.heading-primary {
+    color: #ffffff;
+    text-transform: uppercase;
+    backface-visibility: hidden;
+    margin-bottom: 6rem;
+}
+
+.heading-primary--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    animation: moveInLeft 1s ease-out;
+}
+
+.heading-primary--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.75rem;
+    animation: moveInRight 1s ease-out;
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+    80% {
+        transform: translateX(1rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+    80% {
+        transform: translateX(-1rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(3rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* The inline block element is treated as text. So if we use text-align on its parent element, and set it as center
+we can align the element with display as inline-block, in the center. One must take in note, that we have to include
+transition, as a part of initial state of an element. Otherwise, it won't work.*/
+
+.btn:link,
+.btn:visited {
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 10rem;
+    transition: all .2s;
+    position: relative;
+    font-size: 1.6rem;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
+}
+
+
+/* The transform set on different states, is always in respect to the initial state. */
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
+}
+
+.btn--white {
+    background-color: #fff;
+    color: #777;
+}
+
+
+/* In order for the 'after" element to appear on the page, we need to set the content property & the display
+property. Also, the after pseudo element is basically treated as a child of the element on which it is set. So, 
+all the properties are set relative to the element on which it is set. Also, in order to set the after pseudo 
+element behind the button, we are using absolute positioning. So we must give the parent element, we want the 
+reference to, relative position, in this case, the button. */
+
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn--white::after {
+    background-color: white;
+}
+
+
+/* In here, we are designing the after pseudo-element, when the button is hovered over. We want certain styles 
+to be applied to the after pseudo element. */
+
+.btn:hover::after {
+    transform: scale(1.4, 1.6);
+    opacity: 0;
+}
+
+
+/* The backwards animation-fill-mode, makes sure that the styles of 0% animation, are applied to the element
+before the animation starts. */
+
+.btn--animated {
+    animation: moveInBottom .5s ease-out .75s;
+    animation-fill-mode: backwards;
+}
